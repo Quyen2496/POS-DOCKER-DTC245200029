@@ -1,0 +1,13 @@
+{
+  "name": "pos-app",
+  "version": "1.0.0",
+  "description": "POS Store Management System - DTC245200029",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "mysql2": "^3.14.3"
+  }
+}
