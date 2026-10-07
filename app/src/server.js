@@ -220,6 +220,182 @@ app.get("/api/dashboard", async (req, res) => {
     });
   }
 });
+/*
+ * Create invoice
+ */
+app.post("/api/invoices", async (req, res) => {
+  const connection = await pool.getConnection();
+
+  try {
+    const { customer_id, user_id, items } = req.body;
+
+    // Validate request
+    if (!user_id) {
+      return res.status(400).json({
+        message: "user_id is required"
+      });
+    }
+
+    if (!Array.isArray(items) || items.length === 0) {
+      return res.status(400).json({
+        message: "items must be a non-empty array"
+      });
+    }
+
+    await connection.beginTransaction();
+
+    // Check user
+    const [users] = await connection.query(
+      `
+      SELECT id, username, role
+      FROM users
+      WHERE id = ?
+      `,
+      [user_id]
+    );
+
+    if (users.length === 0) {
+      throw new Error("User not found");
+    }
+
+    // Check customer if provided
+    if (customer_id !== null && customer_id !== undefined) {
+      const [customers] = await connection.query(
+        `
+        SELECT id
+        FROM customers
+        WHERE id = ?
+        `,
+        [customer_id]
+      );
+
+      if (customers.length === 0) {
+        throw new Error("Customer not found");
+      }
+    }
+
+    let total = 0;
+    const invoiceItems = [];
+
+    // Check products and stock
+    for (const item of items) {
+      const productId = Number(item.product_id);
+      const quantity = Number(item.quantity);
+
+      if (!Number.isInteger(productId) || productId <= 0) {
+        throw new Error("Invalid product_id");
+      }
+
+      if (!Number.isInteger(quantity) || quantity <= 0) {
+        throw new Error("Quantity must be a positive integer");
+      }
+
+      const [products] = await connection.query(
+        `
+        SELECT id, name, price, stock
+        FROM products
+        WHERE id = ?
+        FOR UPDATE
+        `,
+        [productId]
+      );
+
+      if (products.length === 0) {
+        throw new Error(`Product ${productId} not found`);
+      }
+
+      const product = products[0];
+
+      if (product.stock < quantity) {
+        throw new Error(
+          `Insufficient stock for product "${product.name}". Available: ${product.stock}`
+        );
+      }
+
+      const price = Number(product.price);
+      const subtotal = price * quantity;
+
+      total += subtotal;
+
+      invoiceItems.push({
+        product_id: product.id,
+        quantity,
+        price,
+        subtotal
+      });
+    }
+
+    // Create invoice
+    const [invoiceResult] = await connection.query(
+      `
+      INSERT INTO invoices
+        (customer_id, user_id, total)
+      VALUES
+        (?, ?, ?)
+      `,
+      [
+        customer_id || null,
+        user_id,
+        total
+      ]
+    );
+
+    const invoiceId = invoiceResult.insertId;
+
+    // Create invoice items and decrease stock
+    for (const item of invoiceItems) {
+      await connection.query(
+        `
+        INSERT INTO invoice_items
+          (invoice_id, product_id, quantity, price, subtotal)
+        VALUES
+          (?, ?, ?, ?, ?)
+        `,
+        [
+          invoiceId,
+          item.product_id,
+          item.quantity,
+          item.price,
+          item.subtotal
+        ]
+      );
+
+      await connection.query(
+        `
+        UPDATE products
+        SET stock = stock - ?
+        WHERE id = ?
+        `,
+        [
+          item.quantity,
+          item.product_id
+        ]
+      );
+    }
+
+    await connection.commit();
+
+    res.status(201).json({
+      message: "Invoice created successfully",
+      data: {
+        id: invoiceId,
+        customer_id: customer_id || null,
+        user_id,
+        total,
+        items: invoiceItems
+      }
+    });
+  } catch (error) {
+    await connection.rollback();
+
+    res.status(400).json({
+      message: "Cannot create invoice",
+      error: error.message
+    });
+  } finally {
+    connection.release();
+  }
+});
 
 /*
  * Frontend fallback
