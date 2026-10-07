@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -50,7 +51,7 @@
       background: white;
       border-radius: 10px;
       padding: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
 
     .card h3 {
@@ -68,12 +69,222 @@
       border-radius: 10px;
       padding: 20px;
       margin-bottom: 25px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
 
     .section h2 {
       margin-top: 0;
     }
+
+    /* =========================
+       POS
+       ========================= */
+
+    .pos-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(320px, 0.8fr);
+      gap: 20px;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .product-card {
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 15px;
+      background: #fff;
+    }
+
+    .product-card h3 {
+      margin: 0 0 8px;
+      font-size: 16px;
+    }
+
+    .product-card .category {
+      color: #6b7280;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .product-card .price {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    .product-card .stock {
+      color: #6b7280;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    button {
+      border: none;
+      border-radius: 6px;
+      padding: 9px 13px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-primary {
+      background: #2563eb;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+    }
+
+    .btn-primary:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+    }
+
+    .btn-success {
+      background: #16a34a;
+      color: white;
+    }
+
+    .btn-success:hover {
+      background: #15803d;
+    }
+
+    .btn-danger {
+      background: #dc2626;
+      color: white;
+      padding: 6px 10px;
+    }
+
+    .btn-secondary {
+      background: #e5e7eb;
+      color: #374151;
+    }
+
+    .cart-panel {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 10px;
+      padding: 18px;
+    }
+
+    .cart-panel h3 {
+      margin-top: 0;
+    }
+
+    .cart-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      padding: 12px 0;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .cart-item-name {
+      font-weight: bold;
+    }
+
+    .cart-item-price {
+      font-size: 13px;
+      color: #6b7280;
+      margin-top: 4px;
+    }
+
+    .cart-controls {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 8px;
+    }
+
+    .quantity-btn {
+      width: 28px;
+      height: 28px;
+      padding: 0;
+      background: #e5e7eb;
+      color: #111827;
+    }
+
+    .quantity {
+      min-width: 24px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .cart-subtotal {
+      text-align: right;
+      font-weight: bold;
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 18px;
+      margin-top: 10px;
+      border-top: 2px solid #d1d5db;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .checkout-area {
+      margin-top: 18px;
+    }
+
+    .checkout-area label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: bold;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #d1d5db;
+      border-radius: 6px;
+      background: white;
+      font-size: 14px;
+    }
+
+    .checkout-area .btn-success {
+      width: 100%;
+      margin-top: 15px;
+      padding: 12px;
+      font-size: 16px;
+    }
+
+    .empty-cart {
+      text-align: center;
+      color: #6b7280;
+      padding: 30px 10px;
+    }
+
+    .message {
+      display: none;
+      margin-bottom: 15px;
+      padding: 12px;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    .message.success {
+      display: block;
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .message.error {
+      display: block;
+      background: #fee2e2;
+      color: #991b1b;
+    }
+
+    /* =========================
+       TABLE
+       ========================= */
 
     table {
       width: 100%;
@@ -113,19 +324,57 @@
       color: #991b1b;
     }
 
+    .loading {
+      text-align: center;
+      color: #6b7280;
+      padding: 25px;
+    }
+
+    @media (max-width: 1100px) {
+      .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .cards {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
     @media (max-width: 900px) {
+      .pos-layout {
+        grid-template-columns: 1fr;
+      }
+
       .cards {
         grid-template-columns: repeat(2, 1fr);
       }
     }
 
     @media (max-width: 600px) {
+      main {
+        padding: 0 12px;
+        margin-top: 20px;
+      }
+
+      header {
+        padding: 15px;
+      }
+
       .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .product-grid {
         grid-template-columns: 1fr;
       }
 
       table {
         font-size: 13px;
+      }
+
+      th,
+      td {
+        padding: 8px;
       }
     }
   </style>
@@ -139,6 +388,8 @@
 </header>
 
 <main>
+
+  <!-- DASHBOARD -->
 
   <div class="cards">
     <div class="card">
@@ -167,6 +418,69 @@
     </div>
   </div>
 
+  <!-- POS -->
+
+  <div class="section">
+    <h2>Bán hàng</h2>
+
+    <div id="message" class="message"></div>
+
+    <div class="pos-layout">
+
+      <div>
+        <h3>Danh sách sản phẩm</h3>
+
+        <div id="posProductGrid" class="product-grid">
+          <div class="loading">Đang tải sản phẩm...</div>
+        </div>
+      </div>
+
+      <div class="cart-panel">
+        <h3>Giỏ hàng</h3>
+
+        <div id="cartItems">
+          <div class="empty-cart">
+            Chưa có sản phẩm trong giỏ hàng.
+          </div>
+        </div>
+
+        <div class="cart-total">
+          <span>Tổng tiền</span>
+          <span id="cartTotal">0 đ</span>
+        </div>
+
+        <div class="checkout-area">
+
+          <label for="customerSelect">Khách hàng</label>
+
+          <select id="customerSelect">
+            <option value="">Khách lẻ</option>
+          </select>
+
+          <button
+            id="checkoutButton"
+            class="btn-success"
+            onclick="checkout()"
+          >
+            Thanh toán
+          </button>
+
+          <button
+            class="btn-secondary"
+            style="width: 100%; margin-top: 8px;"
+            onclick="clearCart()"
+          >
+            Xóa giỏ hàng
+          </button>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PRODUCT TABLE -->
+
   <div class="section">
     <h2>Danh sách sản phẩm</h2>
 
@@ -188,6 +502,8 @@
       </tbody>
     </table>
   </div>
+
+  <!-- INVOICE TABLE -->
 
   <div class="section">
     <h2>Hóa đơn gần đây</h2>
@@ -214,6 +530,14 @@
 </main>
 
 <script>
+  let products = [];
+  let customers = [];
+  let cart = [];
+
+  // Tài khoản thu ngân hiện tại.
+  // Theo dữ liệu seed: user id 2 là STAFF.
+  const currentUserId = 2;
+
   function formatMoney(value) {
     return Number(value).toLocaleString("vi-VN") + " đ";
   }
@@ -230,8 +554,24 @@
     return '<span class="status available">Còn hàng</span>';
   }
 
+  function showMessage(message, type) {
+    const element = document.getElementById("message");
+
+    element.textContent = message;
+    element.className = "message " + type;
+
+    setTimeout(() => {
+      element.className = "message";
+    }, 4000);
+  }
+
   async function loadDashboard() {
     const response = await fetch("/api/dashboard");
+
+    if (!response.ok) {
+      throw new Error("Không thể tải dashboard");
+    }
+
     const data = await response.json();
 
     document.getElementById("products").textContent = data.products;
@@ -243,11 +583,66 @@
 
   async function loadProducts() {
     const response = await fetch("/api/products");
+
+    if (!response.ok) {
+      throw new Error("Không thể tải sản phẩm");
+    }
+
     const result = await response.json();
 
+    products = result.data || [];
+
+    renderProducts();
+    renderProductTable();
+  }
+
+  function renderProducts() {
+    const container = document.getElementById("posProductGrid");
+
+    if (products.length === 0) {
+      container.innerHTML = `
+        <div class="loading">
+          Không có sản phẩm.
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = products.map(product => {
+      const disabled = product.stock <= 0 ? "disabled" : "";
+
+      return `
+        <div class="product-card">
+          <h3>${product.name}</h3>
+
+          <div class="category">
+            ${product.category_name || "-"}
+          </div>
+
+          <div class="price">
+            ${formatMoney(product.price)}
+          </div>
+
+          <div class="stock">
+            Tồn kho: ${product.stock}
+          </div>
+
+          <button
+            class="btn-primary"
+            ${disabled}
+            onclick="addToCart(${product.id})"
+          >
+            ${product.stock > 0 ? "Thêm vào giỏ" : "Hết hàng"}
+          </button>
+        </div>
+      `;
+    }).join("");
+  }
+
+  function renderProductTable() {
     const tbody = document.getElementById("productTable");
 
-    tbody.innerHTML = result.data.map(product => `
+    tbody.innerHTML = products.map(product => `
       <tr>
         <td>${product.id}</td>
         <td>${product.name}</td>
@@ -261,8 +656,252 @@
     `).join("");
   }
 
+  async function loadCustomers() {
+    const response = await fetch("/api/customers");
+
+    if (!response.ok) {
+      throw new Error("Không thể tải khách hàng");
+    }
+
+    const result = await response.json();
+
+    customers = result.data || [];
+
+    const select = document.getElementById("customerSelect");
+
+    select.innerHTML = `
+      <option value="">Khách lẻ</option>
+      ${customers.map(customer => `
+        <option value="${customer.id}">
+          ${customer.name}${customer.phone ? " - " + customer.phone : ""}
+        </option>
+      `).join("")}
+    `;
+  }
+
+  function addToCart(productId) {
+    const product = products.find(item => item.id === productId);
+
+    if (!product) {
+      showMessage("Không tìm thấy sản phẩm.", "error");
+      return;
+    }
+
+    if (product.stock <= 0) {
+      showMessage("Sản phẩm đã hết hàng.", "error");
+      return;
+    }
+
+    const existingItem = cart.find(item => item.product_id === productId);
+
+    if (existingItem) {
+      if (existingItem.quantity >= product.stock) {
+        showMessage("Số lượng trong giỏ đã đạt tồn kho.", "error");
+        return;
+      }
+
+      existingItem.quantity += 1;
+    } else {
+      cart.push({
+        product_id: product.id,
+        name: product.name,
+        price: Number(product.price),
+        stock: Number(product.stock),
+        quantity: 1
+      });
+    }
+
+    renderCart();
+  }
+
+  function increaseQuantity(productId) {
+    const item = cart.find(item => item.product_id === productId);
+
+    if (!item) {
+      return;
+    }
+
+    if (item.quantity >= item.stock) {
+      showMessage("Không thể vượt quá số lượng tồn kho.", "error");
+      return;
+    }
+
+    item.quantity += 1;
+
+    renderCart();
+  }
+
+  function decreaseQuantity(productId) {
+    const item = cart.find(item => item.product_id === productId);
+
+    if (!item) {
+      return;
+    }
+
+    item.quantity -= 1;
+
+    if (item.quantity <= 0) {
+      cart = cart.filter(cartItem => cartItem.product_id !== productId);
+    }
+
+    renderCart();
+  }
+
+  function removeFromCart(productId) {
+    cart = cart.filter(item => item.product_id !== productId);
+    renderCart();
+  }
+
+  function clearCart() {
+    cart = [];
+    renderCart();
+  }
+
+  function getCartTotal() {
+    return cart.reduce(
+      (total, item) => total + item.price * item.quantity,
+      0
+    );
+  }
+
+  function renderCart() {
+    const container = document.getElementById("cartItems");
+
+    if (cart.length === 0) {
+      container.innerHTML = `
+        <div class="empty-cart">
+          Chưa có sản phẩm trong giỏ hàng.
+        </div>
+      `;
+
+      document.getElementById("cartTotal").textContent = "0 đ";
+      return;
+    }
+
+    container.innerHTML = cart.map(item => `
+      <div class="cart-item">
+
+        <div>
+          <div class="cart-item-name">
+            ${item.name}
+          </div>
+
+          <div class="cart-item-price">
+            ${formatMoney(item.price)} / sản phẩm
+          </div>
+
+          <div class="cart-controls">
+            <button
+              class="quantity-btn"
+              onclick="decreaseQuantity(${item.product_id})"
+            >
+              −
+            </button>
+
+            <span class="quantity">
+              ${item.quantity}
+            </span>
+
+            <button
+              class="quantity-btn"
+              onclick="increaseQuantity(${item.product_id})"
+            >
+              +
+            </button>
+
+            <button
+              class="btn-danger"
+              onclick="removeFromCart(${item.product_id})"
+            >
+              Xóa
+            </button>
+          </div>
+        </div>
+
+        <div class="cart-subtotal">
+          ${formatMoney(item.price * item.quantity)}
+        </div>
+
+      </div>
+    `).join("");
+
+    document.getElementById("cartTotal").textContent =
+      formatMoney(getCartTotal());
+  }
+
+  async function checkout() {
+    if (cart.length === 0) {
+      showMessage("Vui lòng thêm sản phẩm vào giỏ hàng.", "error");
+      return;
+    }
+
+    const checkoutButton = document.getElementById("checkoutButton");
+
+    const customerValue =
+      document.getElementById("customerSelect").value;
+
+    const payload = {
+      customer_id: customerValue ? Number(customerValue) : null,
+      user_id: currentUserId,
+      items: cart.map(item => ({
+        product_id: item.product_id,
+        quantity: item.quantity
+      }))
+    };
+
+    checkoutButton.disabled = true;
+    checkoutButton.textContent = "Đang thanh toán...";
+
+    try {
+      const response = await fetch("/api/invoices", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          result.message || "Thanh toán thất bại."
+        );
+      }
+
+      showMessage(
+        `Thanh toán thành công! Hóa đơn #${result.data.id}`,
+        "success"
+      );
+
+      clearCart();
+
+      await Promise.all([
+        loadDashboard(),
+        loadProducts(),
+        loadInvoices()
+      ]);
+
+    } catch (error) {
+      console.error(error);
+
+      showMessage(
+        error.message || "Không thể thanh toán.",
+        "error"
+      );
+    } finally {
+      checkoutButton.disabled = false;
+      checkoutButton.textContent = "Thanh toán";
+    }
+  }
+
   async function loadInvoices() {
     const response = await fetch("/api/invoices");
+
+    if (!response.ok) {
+      throw new Error("Không thể tải hóa đơn");
+    }
+
     const result = await response.json();
 
     const tbody = document.getElementById("invoiceTable");
@@ -273,7 +912,9 @@
         <td>${invoice.customer_name || "Khách lẻ"}</td>
         <td>${invoice.cashier}</td>
         <td>${formatMoney(invoice.total)}</td>
-        <td>${new Date(invoice.created_at).toLocaleString("vi-VN")}</td>
+        <td>
+          ${new Date(invoice.created_at).toLocaleString("vi-VN")}
+        </td>
       </tr>
     `).join("");
   }
@@ -283,11 +924,18 @@
       await Promise.all([
         loadDashboard(),
         loadProducts(),
+        loadCustomers(),
         loadInvoices()
       ]);
+
+      renderCart();
+
     } catch (error) {
       console.error(error);
-      alert("Không thể tải dữ liệu từ server.");
+      showMessage(
+        "Không thể tải dữ liệu từ server.",
+        "error"
+      );
     }
   }
 
@@ -296,3 +944,4 @@
 
 </body>
 </html>
+```
