@@ -34,7 +34,6 @@ services:
       timeout: 5s
       retries: 10
 
-
   app:
     build:
       context: ./app
@@ -57,7 +56,6 @@ services:
       - frontend
       - backend
 
-
   phpmyadmin:
     image: phpmyadmin:latest
     container_name: pos-phpmyadmin
@@ -76,6 +74,7 @@ services:
 
     networks:
       - backend
+
   nginx:
     image: nginx:alpine
     container_name: pos-nginx
@@ -93,16 +92,67 @@ services:
     networks:
       - frontend
 
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.52.1
+    container_name: pos-cadvisor
+    restart: unless-stopped
+
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+
+    networks:
+      - frontend
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: pos-prometheus
+    restart: unless-stopped
+
+    ports:
+      - "9090:9090"
+
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+
+    depends_on:
+      - cadvisor
+
+    networks:
+      - frontend
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: pos-grafana
+    restart: unless-stopped
+
+    ports:
+      - "3001:3000"
+
+    environment:
+      GF_SECURITY_ADMIN_USER: admin
+      GF_SECURITY_ADMIN_PASSWORD: Admin@POS2026!Strong
+
+    volumes:
+      - grafana_data:/var/lib/grafana
+
+    depends_on:
+      - prometheus
+
+    networks:
+      - frontend
 
 networks:
-
   frontend:
     driver: bridge
 
   backend:
     driver: bridge
 
-
 volumes:
-
   mysql_data:
+  prometheus_data:
+  grafana_data:
